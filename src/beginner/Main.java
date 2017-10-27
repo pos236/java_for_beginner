@@ -1,4 +1,4 @@
-package java;
+package beginner;
 
 public class Main {
 
