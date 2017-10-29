@@ -11,35 +11,74 @@ public class Main {
 		int gridLength = 12;
 		int[][] grid = new int[gridLength][gridLength];
 		
-		// 2D array for loop test
-		// actually, it's not required since integer will be set 0 by default.
-		for(int inx = 0; inx<gridLength; inx++) {
-			for(int jnx =0; jnx < gridLength; jnx++) {
-				grid[inx][jnx] = DEFAULT_VALUE;
-			}
-		}
+		initialize(gridLength, grid);
 		
 		Scanner sc = new Scanner(System.in);
 		int[] pxy = new int[3];
+		int[] stack = new int[100];
+		int stackIndex = 0;
 		while(true)	{
 			// print array
 			printArray(gridLength, grid);
 			
 			if(isGameFinished(gridLength, grid)) {
-				System.out.println("Congrat!!");
+				System.out.println("Congrats!!");
 				break;
 			}
 			
 			// use array or three variables
 			pxy[0] = sc.nextInt();
-			pxy[1] = sc.nextInt();
-			pxy[2] = sc.nextInt();
 			
-			// save value at grid
-			if(pxy[0] == 1)
-				grid[pxy[1]][pxy[2]] = 1;
-			else
-				grid[pxy[1]][pxy[2]] = 2;
+			// play game
+			if(pxy[0] != -1) {
+				pxy[1] = sc.nextInt();
+				pxy[2] = sc.nextInt();
+				playTurn(grid, pxy);
+				stackIndex = pushToStack(stack, stackIndex, pxy);
+			}else {
+				stackIndex = popFromStack(stack, stackIndex, grid);
+			}
+		}
+	}
+	
+	private static int popFromStack(int[] stack, int stackIndex, int[][] grid) {
+		if(stackIndex == 0) {
+			System.out.println("Grid is alreay Empty!!");
+			return 0;
+		}
+			
+		
+		int y = stack[--stackIndex];
+		int x = stack[--stackIndex];
+		grid[x][y] = DEFAULT_VALUE;
+		
+		return stackIndex;
+	}
+
+	private static int pushToStack(int[] stack, int stackIndex, int[] pxy) {
+		stack[stackIndex++] = pxy[1];
+		stack[stackIndex++] = pxy[2];
+		
+		return stackIndex;
+	}
+
+	// save value at grid
+	private static void playTurn(int[][] grid, int[] pxy) {
+		if(grid[pxy[1]][pxy[2]] != DEFAULT_VALUE)
+			System.out.println("It is already occupied!!");
+		else if(pxy[0] == 1)
+			grid[pxy[1]][pxy[2]] = 1;
+		else
+			grid[pxy[1]][pxy[2]] = 2;
+	}
+
+	// 2D array for loop test
+	// actually, it's not required since integer will be set 0 by default.
+	private static void initialize(int gridLength, int[][] grid) {
+		for(int inx = 0; inx<gridLength; inx++) {
+			for(int jnx =0; jnx < gridLength; jnx++) {
+				grid[inx][jnx] = DEFAULT_VALUE;
+			}
 		}
 	}
 
