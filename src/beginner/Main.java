@@ -12,10 +12,10 @@ public class Main {
 		// cons: cannot guess meaning of variables
 		//       codes get longer when features are added.
 		
-		int[][] score = new int[5][3];
+		Score[] score = new Score[5];
 //		System.out.println(score.length);
 		
-		String input = "70 80 80 65 95 70 85 95 90 85 85 90 75 90 100";
+		String input = "초6중간 70 80 80 초6기말 65 95 70 초6중간 85 95 90 초6기말 85 85 90 중1중간 75 90 100";
 		System.out.println("input format: " + input);
 		System.out.println("output:");
 		System.out.println("=========================================================");
@@ -24,23 +24,36 @@ public class Main {
 		sc = new Scanner(input);
 		int index = 0;
 		
-		
 		while(index < score.length) {
-			score[index][0] = sc.nextInt();
-			score[index][1] = sc.nextInt();
-			score[index][2] = sc.nextInt();
+			// exercise 1. use class
+//			Score tempScore = new Score();
+//			tempScore.grade = sc.next();
+//			tempScore.korean = sc.nextInt();
+//			tempScore.english = sc.nextInt();
+//			tempScore.math = sc.nextInt();
+//			score[index] = tempScore;
+//			index++;
+			
+			// exercise 2. use constructor
+			Score tempScore = new Score(sc.next(), sc.nextInt(), sc.nextInt(), sc.nextInt());
+			score[index] = tempScore;
 			index++;
 		}
 		
 		index = 0;
-		System.out.println("국\t영\t수\t평균\t용돈\t");
+		System.out.println("학년\t국\t영\t수\t평균\t용돈\t");
 		
 		while(index < score.length) {
-			System.out.print(score[index][0] + "\t"+ score[index][1] + "\t" + score[index][2] + "\t");
-			double average = (double)(score[index][0]+score[index][1]+score[index][2])/3;
+			Score tempScore = score[index];
+			System.out.print(tempScore.grade + "\t"+ tempScore.korean + "\t" + tempScore.english + "\t" + tempScore.math + "\t");
+			// exercise 4. extract average method
+//			double average = (double)( tempScore.korean + tempScore.english + tempScore.math)/3;
+//			System.out.print(new java.text.DecimalFormat("#.#").format(average) + "\t");
+			System.out.print(new java.text.DecimalFormat("#.#").format(tempScore.getAverage()) + "\t");
 			
-			System.out.print(new java.text.DecimalFormat("#.#").format(average) + "\t");
-			System.out.print(getPocketMoney(score[index][0], score[index][1], score[index][2]));
+			// exercise 3. extract pocket money mathod
+//			System.out.print(getPocketMoney(tempScore.korean, tempScore.english, tempScore.math));
+			System.out.print(tempScore.getPocketMoney());
 			System.out.println("");
 //			System.out.println(new java.text.DecimalFormat("#.#").format(0.1));
 			
@@ -58,27 +71,7 @@ public class Main {
 		System.out.println("");
 	}
 
-	private static int getPocketMoney(int i, int j, int k) {
-		int pocketMoney = 0;
-		if(i >= 100)			pocketMoney += 2000;
-		else if(i >= 90)		pocketMoney += 1000;
-		else if(i >= 80)		pocketMoney += 500;
-		
-		if(j >= 100)			pocketMoney += 2000;
-		else if(j >= 90)		pocketMoney += 1000;
-		else if(j >= 80)		pocketMoney += 500;
-		
-		if(k >= 100)			pocketMoney += 2000;
-		else if(k >= 90)		pocketMoney += 1000;
-		else if(k >= 80)		pocketMoney += 500;
-		
-		double average = (double) (i+j+k)/3;
-		if(average >=100)			pocketMoney += 15000;
-		else if(average >=90)		pocketMoney += 10000;
-		else if(average >= 80)		pocketMoney += 5000;
-		
-		return pocketMoney;
-	}
+	
 	
 	
 
