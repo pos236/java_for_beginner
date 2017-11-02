@@ -39,7 +39,7 @@ public class Score {
 		else if(math >= 90)		pocketMoney += BONUS_SUB_90;
 		else if(math >= 80)		pocketMoney += BONUS_SUB_80;
 		
-		double average = (double) (korean+english+math)/3;
+		double average = getAverage();
 		if(average >=100)			pocketMoney += BONUS_AVG_100;
 		else if(average >=90)		pocketMoney += BONUS_AVG_90;
 		else if(average >= 80)		pocketMoney += BONUS_AVG_80;

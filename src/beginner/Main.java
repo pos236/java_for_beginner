@@ -13,7 +13,7 @@ public class Main {
 		// cons of array: fixed length
 		ArrayList<Score> score = new ArrayList<Score>();
 		
-		String input = "초6중간 70 80 80 초6기말 65 95 70 초6중간 85 95 90 초6기말 85 85 90 중1중간 75 90 100 중1기말 100 100 100";
+		String input = "초6중간 70 80 80 초6기말 65 95 70 초6중간 85 95 90 초6기말 85 85 90 중1중간 75 90 100 80 80 중1기말 100 100 100 90 95";
 		System.out.println("input format: " + input);
 		System.out.println("output:");
 		System.out.println("=========================================================");
@@ -22,15 +22,26 @@ public class Main {
 		sc = new Scanner(input);
 		
 		while(sc.hasNext()) {
-			Score tempScore = new Score(sc.next(), sc.nextInt(), sc.nextInt(), sc.nextInt());
+			Score tempScore = null;
+			String grade = sc.next();
+			if(grade.contains("초"))
+				tempScore = new Score(grade, sc.nextInt(), sc.nextInt(), sc.nextInt());
+			else
+				tempScore = new MiddleScore(grade, sc.nextInt(), sc.nextInt(), sc.nextInt(), sc.nextInt(), sc.nextInt());
+			
 			score.add(tempScore);
 		}
 		
-		System.out.println("학년\t국\t영\t수\t평균\t용돈\t");
+		System.out.println("학년\t국\t영\t수\t사\t과\t평균\t용돈\t");
 		
 		for(int index=0; index<score.size();index++) {
 			Score tempScore = score.get(index);
 			System.out.print(tempScore.grade + "\t"+ tempScore.korean + "\t" + tempScore.english + "\t" + tempScore.math + "\t");
+			if(tempScore instanceof MiddleScore)
+				System.out.print(((MiddleScore)tempScore).history + "\t" + ((MiddleScore)tempScore).science +"\t");
+			else
+				System.out.print("\t\t");
+			
 			System.out.print(new java.text.DecimalFormat("#.#").format(tempScore.getAverage()) + "\t");
 			
 			System.out.print(tempScore.getPocketMoney());
