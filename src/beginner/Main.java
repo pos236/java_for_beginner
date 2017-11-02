@@ -1,5 +1,6 @@
 package beginner;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -8,56 +9,32 @@ public class Main {
 		// Pocket Money Calculator for Elementary School
 		// Input: space separated Korean, English, Math score
 		// Output: Korean English Math Avg
-		// p.s.: use 2D array first
-		// cons: cannot guess meaning of variables
-		//       codes get longer when features are added.
 		
-		Score[] score = new Score[5];
-//		System.out.println(score.length);
+		// cons of array: fixed length
+		ArrayList<Score> score = new ArrayList<Score>();
 		
-		String input = "초6중간 70 80 80 초6기말 65 95 70 초6중간 85 95 90 초6기말 85 85 90 중1중간 75 90 100";
+		String input = "초6중간 70 80 80 초6기말 65 95 70 초6중간 85 95 90 초6기말 85 85 90 중1중간 75 90 100 중1기말 100 100 100";
 		System.out.println("input format: " + input);
 		System.out.println("output:");
 		System.out.println("=========================================================");
 		
 		Scanner sc = new Scanner(System.in);
 		sc = new Scanner(input);
-		int index = 0;
 		
-		while(index < score.length) {
-			// exercise 1. use class
-//			Score tempScore = new Score();
-//			tempScore.grade = sc.next();
-//			tempScore.korean = sc.nextInt();
-//			tempScore.english = sc.nextInt();
-//			tempScore.math = sc.nextInt();
-//			score[index] = tempScore;
-//			index++;
-			
-			// exercise 2. use constructor
+		while(sc.hasNext()) {
 			Score tempScore = new Score(sc.next(), sc.nextInt(), sc.nextInt(), sc.nextInt());
-			score[index] = tempScore;
-			index++;
+			score.add(tempScore);
 		}
 		
-		index = 0;
 		System.out.println("학년\t국\t영\t수\t평균\t용돈\t");
 		
-		while(index < score.length) {
-			Score tempScore = score[index];
+		for(int index=0; index<score.size();index++) {
+			Score tempScore = score.get(index);
 			System.out.print(tempScore.grade + "\t"+ tempScore.korean + "\t" + tempScore.english + "\t" + tempScore.math + "\t");
-			// exercise 4. extract average method
-//			double average = (double)( tempScore.korean + tempScore.english + tempScore.math)/3;
-//			System.out.print(new java.text.DecimalFormat("#.#").format(average) + "\t");
 			System.out.print(new java.text.DecimalFormat("#.#").format(tempScore.getAverage()) + "\t");
 			
-			// exercise 3. extract pocket money mathod
-//			System.out.print(getPocketMoney(tempScore.korean, tempScore.english, tempScore.math));
 			System.out.print(tempScore.getPocketMoney());
 			System.out.println("");
-//			System.out.println(new java.text.DecimalFormat("#.#").format(0.1));
-			
-			index++;
 		}
 		
 		

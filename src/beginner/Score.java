@@ -2,6 +2,14 @@ package beginner;
 
 public class Score {
 	
+	static int BONUS_SUB_80 = 500;
+	static int BONUS_SUB_90 = 1000;
+	static int BONUS_SUB_100 = 2000;
+	
+	static int BONUS_AVG_80 = 5000;
+	static int BONUS_AVG_90 = 10000;
+	static int BONUS_AVG_100 = 15000;
+	
 	String grade;
 	int korean;
 	int english;
@@ -19,22 +27,22 @@ public class Score {
 	// public, private
 	int getPocketMoney() {
 		int pocketMoney = 0;
-		if(korean >= 100)			pocketMoney += 2000;
-		else if(korean >= 90)		pocketMoney += 1000;
-		else if(korean >= 80)		pocketMoney += 500;
+		if(korean >= 100)			pocketMoney += BONUS_SUB_100;
+		else if(korean >= 90)		pocketMoney += BONUS_SUB_90;
+		else if(korean >= 80)		pocketMoney += BONUS_SUB_80;
 		
-		if(english >= 100)			pocketMoney += 2000;
-		else if(english >= 90)		pocketMoney += 1000;
-		else if(english >= 80)		pocketMoney += 500;
+		if(english >= 100)			pocketMoney += BONUS_SUB_100;
+		else if(english >= 90)		pocketMoney += BONUS_SUB_90;
+		else if(english >= 80)		pocketMoney += BONUS_SUB_80;
 		
-		if(math >= 100)			pocketMoney += 2000;
-		else if(math >= 90)		pocketMoney += 1000;
-		else if(math >= 80)		pocketMoney += 500;
+		if(math >= 100)			pocketMoney += BONUS_SUB_100;
+		else if(math >= 90)		pocketMoney += BONUS_SUB_90;
+		else if(math >= 80)		pocketMoney += BONUS_SUB_80;
 		
 		double average = (double) (korean+english+math)/3;
-		if(average >=100)			pocketMoney += 15000;
-		else if(average >=90)		pocketMoney += 10000;
-		else if(average >= 80)		pocketMoney += 5000;
+		if(average >=100)			pocketMoney += BONUS_AVG_100;
+		else if(average >=90)		pocketMoney += BONUS_AVG_90;
+		else if(average >= 80)		pocketMoney += BONUS_AVG_80;
 		
 		return pocketMoney;
 	}
